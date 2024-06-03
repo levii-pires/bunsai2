@@ -9,14 +9,14 @@ import { register } from "../../core/register";
 export interface ReactModuleDeclaration<Context extends Record<string, any>> {
   component: (props: ModuleRenderProps<Context>) => ReactNode;
   head?: (props: ModuleRenderProps<Context>) => ReactNode;
-  css?: (props: ModuleRenderProps<Context>) => ReactNode;
+  css?: (props: ModuleRenderProps<Context>) => string;
   importMeta: ImportMeta;
 }
 
 export interface ReactModule<Context extends Record<string, any>> {
   (props: ModuleRenderProps<Context>): ReactNode;
   head?: (props: ModuleRenderProps<Context>) => ReactNode;
-  css?: (props: ModuleRenderProps<Context>) => ReactNode;
+  css?: (props: ModuleRenderProps<Context>) => string;
   importMeta: ImportMeta;
   $hydrate(props: ModuleRenderProps<Context>): void;
 }
@@ -31,6 +31,7 @@ export function make<Context extends Record<string, any>>(
   return Object.assign(Module, {
     importMeta: decl.importMeta,
     head: decl.head,
+    css: decl.css,
     $hydrate(props: ModuleRenderProps<Context>) {
       hydrateRoot((window as any).$root, <Module {...props} />);
     },
@@ -54,7 +55,7 @@ export function react<Context extends Record<string, any>>(
     $m_render = (props: ModuleRenderProps<Context>) => {
       return {
         head: renderToStaticMarkup(Module.head && <Module.head {...props} />),
-        css: renderToStaticMarkup(Module.css && <Module.css {...props} />),
+        css: (Module.css && Module.css(props)) || "",
         html: renderToString(<Module {...props} />),
       };
     };
@@ -103,5 +104,7 @@ export type ModuleTable<Data extends Record<string, ReactModule<any>>> = {
     ? StandaloneModule<T>
     : never;
 };
+
+export function raw() {}
 
 export { React };

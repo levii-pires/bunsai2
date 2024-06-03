@@ -1,6 +1,6 @@
 {
   "name": "bunsai",
-  "version": "2.3.2",
+  "version": "2.4.0",
   "module": "./src/core/index.ts",
   "description": "SSR Engine for Bun",
   "repository": "levii-pires/bunsai2",

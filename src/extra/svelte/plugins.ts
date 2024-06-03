@@ -75,9 +75,9 @@ export default function createPlugins(svelteConfig: ResolvedSvelteConfig) {
               'import { genScript as $sv_gen_script } from "bunsai/svelte/script.ts";\n' +
               'import { transformRender as $sv_transform_render } from "bunsai/svelte/transform-render.ts";\n' +
               js +
-              `\nconst $m_meta={css:null,cssHash:"${name.slice(1)}",path:"${
-                args.path
-              }",};` +
+              `\nconst $m_meta={css:null,cssHash:"${name.slice(
+                1
+              )}",path:${JSON.stringify(args.path)},};` +
               "\nconst $m_symbol = ModuleSymbol;" +
               `\nconst $m_render=$sv_transform_render(${name}.render);` +
               "\nconst $m_gen_script = $sv_gen_script;" +

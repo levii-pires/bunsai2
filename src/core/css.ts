@@ -7,8 +7,6 @@ export interface CSSData {
 }
 
 export function genCSS(data: CSSData) {
-  if (!data.meta.css) return "";
-
   const path = createPath({
     prefix: data.prefix,
     artifactPath: getCSSArtifactPath(data.meta),

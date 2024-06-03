@@ -14,7 +14,7 @@ It leverages some of the powers of Bun (like Bundler, preloading and plugin syst
 
 ## Known bugs
 
-- At the current version of Bun (v1.1.9) on Windows, the asset path on the browser version is not resolved correctly, throwing a hydration warning on React and completly breaking the asset path on Svelte. ([Github issue](https://github.com/oven-sh/bun/issues/11181))
+There are 0 known bugs on the current version of Bun (v1.1.12) and BunSai (v2.4.0).
 
 ## Quick start
 
@@ -177,11 +177,13 @@ import "bunsai/with-config";
 */
 await plugged();
 
+const { elysia } = plug(result);
+
 // as plugin
-const app = new Elysia().use(plug(result)).get("/", render).listen(3000);
+const app = new Elysia().use(elysia()).get("/", render).listen(3000);
 
 // as the main instance
-const app = plug(result).get("/", render).listen(3000);
+const app = elysia().get("/", render).listen(3000);
 
 console.log("Elysia Ready!");
 ```

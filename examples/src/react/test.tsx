@@ -26,9 +26,8 @@ function Test({ attrs, context }: TestProps) {
   );
 }
 
-const head = () => (
-  <style>
-    {`
+const css = () =>
+  `
     html,
     body {
       width: 100vw;
@@ -71,8 +70,6 @@ const head = () => (
           transform: scale(105%);
         }
       }
-    `}
-  </style>
-);
+    `;
 
-export default make({ component: Test, importMeta: import.meta, head });
+export default make({ component: Test, importMeta: import.meta, css });
