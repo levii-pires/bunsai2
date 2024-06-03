@@ -16,7 +16,17 @@ export interface ModuleComponent {}
 export interface ModuleRenderProps<Context extends Record<string, any>> {
   context: Context;
   attrs: Attributes;
+  /**
+   * use {@link step}
+   * @deprecated
+   */
   isServer: boolean;
+  /**
+   * - `server`: at this step you can populate `attrs` and access the full `context` object + the Bun API;
+   * - `client`: populating `attrs` does nothing, `context` is just a JSON and the Bun API does not exist;
+   * - `build`: the builder is warming up the module. `context` is an empty object.
+   */
+  step: "server" | "client" | "build";
 }
 
 export type ModuleRenderer<Context extends Record<string, any>> = (

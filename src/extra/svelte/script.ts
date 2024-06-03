@@ -6,7 +6,7 @@ export function genScript(data: ScriptData) {
     '<script type="module">' +
     `import Component from "${data.clientPath}";` +
     `window.$sv_instance = new Component({hydrate:${SvelteHydratable()},target:window.$root,props:${JSON.stringify(
-      data.props
+      { props: data.props }
     )}})` +
     "</script>"
   );

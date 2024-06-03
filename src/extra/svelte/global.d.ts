@@ -11,6 +11,9 @@ declare module "*.svelte" {
   export default module;
 }
 
+declare type Props<Context extends Record<string, any>> =
+  import("../../core/module").ModuleRenderProps<Context>;
+
 declare type SvelteConfig = import("./config").Config;
 
 /**

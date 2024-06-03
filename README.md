@@ -33,6 +33,13 @@ bun add bunsai@2 <the optional deps you are gonna use>
 | [Byte](https://bytejs.pages.dev/)                   | [`adapters/byte.ts`](./examples/src/adapters/byte.ts)         |
 | Static Build                                        | `Coming soon...`                                              |
 
+### Modules
+
+| Framework/Lib                 | Example                                                   |
+| ----------------------------- | --------------------------------------------------------- |
+| [React](https://react.dev/)   | [`react/test.tsx`](./examples/src/react/test.tsx)         |
+| [Svelte](https://svelte.dev/) | [`svelte/test.svelte`](./examples/src/svelte/test.svelte) |
+
 ### Web libraries and plugins
 
 Currently BunSai supports Svelte and React. Check [`examples`](./examples/src/).

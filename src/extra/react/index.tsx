@@ -105,6 +105,4 @@ export type ModuleTable<Data extends Record<string, ReactModule<any>>> = {
     : never;
 };
 
-export function raw() {}
-
 export { React };

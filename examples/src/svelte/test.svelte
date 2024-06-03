@@ -1,24 +1,19 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import type { RenderAttributes } from "bunsai";
   import logo from "../assets/logo.webp";
   import Text from "./$text.svelte";
 
-  export let attrs: RenderAttributes;
+  export let props: Props<{}>;
 
-  export let context: Record<string, any>;
-
-  export let isServer: boolean;
+  let { attrs } = props;
 
   attrs.root_attrs = {
     "data-theme": "my-theme",
   };
 
   onMount(() => {
-    console.log("mounted", { context, isServer });
+    console.log("mounted", props);
   });
-
-  console.log(logo);
 </script>
 
 <svelte:head>

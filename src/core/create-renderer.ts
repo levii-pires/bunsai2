@@ -20,7 +20,12 @@ export function createRenderer(
 
     const attrs: Attributes = {};
 
-    const { head, html, css } = $m_render({ context, attrs, isServer: true });
+    const { head, html, css } = $m_render({
+      context,
+      attrs,
+      isServer: true,
+      step: "server",
+    });
 
     meta.css = css;
 
@@ -36,6 +41,7 @@ export function createRenderer(
           context,
           attrs,
           isServer: false,
+          step: "client",
         },
       }),
     });
