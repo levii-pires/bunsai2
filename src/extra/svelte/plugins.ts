@@ -59,7 +59,11 @@ export default function createPlugins(svelteConfig: ResolvedSvelteConfig) {
             log.verbose("[svelte]: ignoring", args.path);
 
             return {
-              contents: js,
+              contents:
+                (useAsset == false
+                  ? ""
+                  : 'import $create_asset_getter  from "bunsai/asset";\n' +
+                    "const asset = $create_asset_getter(import.meta);\n") + js,
               loader: "js",
             };
           }
@@ -120,11 +124,10 @@ export default function createPlugins(svelteConfig: ResolvedSvelteConfig) {
 
           return {
             contents:
-              useAsset == false
-                ? js
-                : 'import $create_asset_getter from "bunsai/asset";\n' +
-                  js +
-                  "\nconst asset = $create_asset_getter(import.meta);",
+              (useAsset == false
+                ? ""
+                : 'import $create_asset_getter  from "bunsai/asset";\n' +
+                  "const asset = $create_asset_getter(import.meta);\n") + js,
             loader: "js",
           };
         });

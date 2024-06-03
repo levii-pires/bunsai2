@@ -76,7 +76,7 @@ export default async function bunsai(
     .map((i) => i.path);
 
   log.debug("client endpoints:", paths.length);
-  log.verbose("endpoint: ", paths.join("\nendpoint: "));
+  log.verbose("endpoint: ", paths.join("\n\tendpoint: "));
 
   return result;
 }
