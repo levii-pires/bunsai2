@@ -1,19 +1,17 @@
 import { plugged } from "bunsai/elysia";
-import TestSvelte from "../svelte/test.svelte";
-import TestReact from "../react/test";
-import { table } from "bunsai/react";
-
-const t = table({ TestReact });
+import * as modules from "../modules";
 
 const { elysia, handler } = await plugged();
 
 elysia()
   // using 'plugged' handler function
-  .get("/", handler(TestSvelte))
+  .get("/", handler(modules.SvelteTest))
   // using decorator
-  .get("/decor", ({ render, ...context }) => render(TestSvelte, context))
+  .get("/decor", ({ render, ...context }) =>
+    render(modules.SvelteTest, context)
+  )
   // using component standalone render function
-  .get("/react", t.TestReact.render)
+  .get("/react", modules.ReactTest.render)
   .listen(3000);
 
 console.log("Elysia Ready!");

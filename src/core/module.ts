@@ -29,13 +29,15 @@ export interface ModuleRenderProps<Context extends Record<string, any>> {
   step: "server" | "client" | "build";
 }
 
-export type ModuleRenderer<Context extends Record<string, any>> = (
-  props: ModuleRenderProps<Context>
-) => {
+export interface ModuleRenderResult {
   head: string;
   html: string;
   css: string;
-};
+}
+
+export type ModuleRenderer<Context extends Record<string, any>> = (
+  props: ModuleRenderProps<Context>
+) => ModuleRenderResult;
 
 export interface Module<
   Context extends Record<string, any> = Record<string, any>

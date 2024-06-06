@@ -1,11 +1,6 @@
-import { writeToDisk } from "bunsai/file";
-import { react } from "bunsai/react";
-import "../svelte/test.svelte";
-import T from "../react/test";
-
-react(T);
-
+import "../modules";
 import "bunsai/with-config";
+import { writeToDisk } from "bunsai/file";
 
 await writeToDisk("./dist");
 

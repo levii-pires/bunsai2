@@ -11,6 +11,7 @@
     "elysia": "bun src/adapters/elysia.ts",
     "file": "bun src/adapters/file.ts",
     "hono": "bun src/adapters/hono.ts",
+    "build": "bun src/adapters/build.ts",
     "manifest": "bun src/adapters/manifest.ts",
     "byte:hot": "bun --hot src/adapters/byte.ts",
     "elysia:hot": "bun --hot src/adapters/elysia.ts",
