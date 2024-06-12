@@ -11,6 +11,7 @@ export interface ReactModuleDeclaration<Context extends Record<string, any>> {
   head?: (props: ModuleRenderProps<Context>) => ReactNode;
   css?: (props: ModuleRenderProps<Context>) => string;
   importMeta: ImportMeta;
+  isStatic?: boolean;
 }
 
 export interface ReactModule<Context extends Record<string, any>> {
@@ -19,6 +20,7 @@ export interface ReactModule<Context extends Record<string, any>> {
   css?: (props: ModuleRenderProps<Context>) => string;
   importMeta: ImportMeta;
   $hydrate(props: ModuleRenderProps<Context>): void;
+  isStatic?: boolean;
 }
 
 export type ReactProps<Context extends Record<string, any> = {}> =
@@ -32,6 +34,7 @@ export function make<Context extends Record<string, any>>(
     importMeta: decl.importMeta,
     head: decl.head,
     css: decl.css,
+    isStatic: decl.isStatic,
     $hydrate(props: ModuleRenderProps<Context>) {
       hydrateRoot((window as any).$root, <Module {...props} />);
     },
@@ -51,6 +54,7 @@ export function react<Context extends Record<string, any>>(
       cssHash: Bun.hash(path, 1).toString(36),
       path,
     },
+    $m_static = Module.isStatic || false,
     $m_gen_script = genScript,
     $m_render = (props: ModuleRenderProps<Context>) => {
       return {
@@ -65,11 +69,13 @@ export function react<Context extends Record<string, any>>(
     $m_meta,
     $m_render,
     $m_symbol,
+    $m_static,
     render: register<Context>({
       $m_symbol,
       $m_meta,
       $m_gen_script,
       $m_render,
+      $m_static,
     }),
   };
 }

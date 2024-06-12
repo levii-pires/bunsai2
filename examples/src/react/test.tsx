@@ -72,4 +72,9 @@ const css = () =>
       }
     `;
 
-export default make({ component: Test, importMeta: import.meta, css });
+export default make({
+  component: Test,
+  importMeta: import.meta,
+  css,
+  isStatic: true,
+});

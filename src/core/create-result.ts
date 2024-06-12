@@ -1,6 +1,6 @@
 import type { Attributes } from "./attrs";
 import { type ClientBuild } from "./build";
-import { createRenderer } from "./create-renderer";
+import { createAutoRenderer } from "./create-renderer";
 import type { BunSai } from ".";
 
 export function createResult(
@@ -14,7 +14,7 @@ export function createResult(
   const retorno: BunSai = {
     prefix,
     root,
-    render: createRenderer(build, prefix, defaultAttrs),
+    render: createAutoRenderer(build, prefix, defaultAttrs),
     declarations: [],
   };
 

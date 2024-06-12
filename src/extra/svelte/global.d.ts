@@ -29,3 +29,10 @@ declare type SvelteConfig = import("./config").Config;
  * asset(logo); // /__bunsai__/assets/logo.png
  */
 declare var asset: import("../asset").Asset;
+
+/**
+ * Setting this variable at module scope configures whether this is a static module or not.
+ *
+ * Initial value: `false`
+ */
+declare var isStatic: boolean;

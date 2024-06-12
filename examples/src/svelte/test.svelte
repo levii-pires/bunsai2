@@ -1,3 +1,7 @@
+<script context="module">
+  // isStatic = true;
+</script>
+
 <script lang="ts">
   import { onMount } from "svelte";
   import logo from "../assets/logo.webp";

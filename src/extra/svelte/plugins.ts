@@ -78,6 +78,7 @@ export default function createPlugins(svelteConfig: ResolvedSvelteConfig) {
               'import { ModuleSymbol } from "bunsai/globals";\n' +
               'import { genScript as $sv_gen_script } from "bunsai/svelte/script.ts";\n' +
               'import { transformRender as $sv_transform_render } from "bunsai/svelte/transform-render.ts";\n' +
+              "let isStatic=false;\n" +
               js +
               `\nconst $m_meta={css:null,cssHash:"${name.slice(
                 1
@@ -85,8 +86,9 @@ export default function createPlugins(svelteConfig: ResolvedSvelteConfig) {
               "\nconst $m_symbol = ModuleSymbol;" +
               `\nconst $m_render=$sv_transform_render(${name}.render);` +
               "\nconst $m_gen_script = $sv_gen_script;" +
-              "\nconst render = $register({$m_meta,$m_render,$m_symbol,$m_gen_script});" +
-              `\nObject.assign(${name},{$m_meta,$m_render,$m_symbol,$m_gen_script,render})`,
+              "\nconst $m_static=isStatic" +
+              "\nconst render = $register({$m_meta,$m_render,$m_symbol,$m_gen_script,$m_static});" +
+              `\nObject.assign(${name},{$m_meta,$m_render,$m_symbol,$m_gen_script,render,$m_static})`,
             loader: "js",
           };
         });
