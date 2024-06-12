@@ -4,5 +4,5 @@ import { Builder } from "bunsai/build";
 await Builder.build({
   config: {},
   outFolder: "./dist",
-  programEntrypoint: "",
+  programEntrypoint: import.meta.resolve("./byte.ts"),
 });
