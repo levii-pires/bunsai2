@@ -37,6 +37,10 @@ export function processRenderAttrs(
   if (attrs.root_attrs) delete attrs.root_attrs.id;
   if (defaults.root_attrs) delete defaults.root_attrs.id;
 
+  return mergeAttrs(attrs, defaults);
+}
+
+export function mergeAttrs(attrs: Attributes, defaults: Attributes) {
   return {
     body_attrs: objToAttrs({ ...defaults.body_attrs, ...attrs.body_attrs }),
     html_lang: attrs.html_lang || defaults.html_lang || "",

@@ -1,9 +1,8 @@
 import "../modules";
-import "bunsai/with-config";
 import { Builder } from "bunsai/build";
 
-const build = new Builder({
-  programEntrypoint: Bun.fileURLToPath(import.meta.resolve("./byte.ts")),
+await Builder.build({
+  config: {},
+  outFolder: "./dist",
+  programEntrypoint: "",
 });
-
-console.log(build.warmModules());

@@ -13,13 +13,12 @@ export type Renderer = <Context extends Record<string, any>>(
 export interface DynamicResponseArgs {
   module: Module<any>;
   result: ClientBuild;
-  prefix: string;
   defaultAttrs?: Attributes;
 }
 
 export function createDynamicRenderer({
   module,
-  prefix,
+
   result,
   defaultAttrs,
 }: DynamicResponseArgs) {
@@ -132,14 +131,11 @@ export function createAutoRenderer(
       } else {
         rendererRecord[module.$m_meta.path] = createDynamicRenderer({
           module,
-          prefix,
           result,
           defaultAttrs,
         });
       }
     }
-
-    console.log(rendererRecord);
 
     return rendererRecord[module.$m_meta.path]!(context);
   };
