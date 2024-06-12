@@ -1,8 +1,11 @@
-import type { BunSai } from "../core";
+import type { BunSai, BunsaiConfig } from "../core";
 import type { Attributes } from "../core/attrs";
 import { buildClient, type ClientBuild } from "../core/build";
+import { createResult } from "../core/create-result";
 import type { Module, ModuleRenderResult } from "../core/module";
+import { normalizeConfig } from "../core/normalize-config";
 import { registry } from "../core/register";
+import { join } from "path";
 
 export type WarmupResult = Array<
   [
@@ -16,14 +19,12 @@ export type WarmupResult = Array<
 
 export interface BuilderArgs {
   /**
-   * Default: pull modules from registry
+   * Default: get modules from registry
    */
   modules?: Module<any>[];
   programEntrypoint: string;
-  build: {
-    prefix: string;
-    root: string;
-  };
+  outFolder: string;
+  config: BunsaiConfig;
 }
 
 export class Builder implements BuilderArgs {
@@ -31,30 +32,34 @@ export class Builder implements BuilderArgs {
   programEntrypoint: string;
   clientBuild: ClientBuild | null = null;
   bunsai: BunSai | null = null;
-  build: {
-    prefix: string;
-    root: string;
-  };
+  config: Required<BunsaiConfig>;
+  outFolder: string;
 
-  constructor(args: BuilderArgs) {
+  private constructor(args: BuilderArgs) {
     this.programEntrypoint = args.programEntrypoint;
-
-    this.build = args.build;
-
+    this.config = normalizeConfig(args.config);
     this.modules = args.modules || Array.from(registry.values());
+    this.outFolder = args.outFolder;
 
     if (this.modules.length == 0) throw new Error("empty BunSai registry");
   }
 
   async init() {
-    const build = await buildClient(this.build.prefix, this.build.root);
+    const build = await buildClient(this.config.prefix, this.config.root);
 
     if (!build) throw new Error("build client failed");
 
     this.clientBuild = build;
+
+    this.bunsai = createResult(
+      this.clientBuild,
+      this.config.prefix,
+      this.config.root,
+      this.config.defaults.attrs
+    );
   }
 
-  warm() {
+  warmModules() {
     const result: WarmupResult = [];
 
     for (const module of this.modules) {
@@ -75,5 +80,15 @@ export class Builder implements BuilderArgs {
     }
 
     return result;
+  }
+
+  static async build(args: BuilderArgs) {
+    const self = new this(args);
+
+    await self.init();
+
+    const warmResult = self.warmModules();
+
+    // self.bunsai!. todo: finish
   }
 }

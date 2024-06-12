@@ -6,4 +6,4 @@ const build = new Builder({
   programEntrypoint: Bun.fileURLToPath(import.meta.resolve("./byte.ts")),
 });
 
-console.log(build.warm());
+console.log(build.warmModules());
