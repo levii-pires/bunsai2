@@ -92,6 +92,7 @@
   ],
   "type": "module",
   "dependencies": {
+    "pino": "^9.2.0",
     "urijs": "1.19.11"
   },
   "license": "MIT",

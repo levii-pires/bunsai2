@@ -2,6 +2,7 @@ import type { BunSai } from ".";
 import type { BunPlugin } from "bun";
 import { createHolder, type Holder } from "./util";
 import { ModuleSymbol as $ms } from "./module";
+import type { BaseLogger } from "pino";
 import type { ClientBuild } from "./build";
 
 // to avoid type errors
@@ -15,6 +16,9 @@ export const CurrentClientBuild: Holder<ClientBuild> =
 
 export const IsDev: Holder<boolean> = ($global.$$$bunsai_is_dev ||=
   createHolder(typeof Bun != "undefined" && Bun.env.NODE_ENV != "production"));
+
+export const Logger: Holder<BaseLogger> = ($global.$$$bunsai_logger ||=
+  createHolder());
 
 export const BrowserBuildPlugins: BunPlugin[] =
   ($global.$$$bunsai_browser_build_plugins ||= []);

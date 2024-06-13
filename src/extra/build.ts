@@ -101,12 +101,12 @@ export class Builder implements BuilderArgs {
     const modules: {
       isStatic: boolean;
       source: string;
-      path: string;
+      serve: string;
       cssHash: string;
       renderData: string;
     }[] = [];
 
-    const files: string[] = [];
+    const files: { serve: string; source: string }[] = [];
 
     for (const [modulo, data] of warmResult) {
       const moduloClientPath = entries.get(modulo.$m_meta.path);
@@ -122,7 +122,7 @@ export class Builder implements BuilderArgs {
       modules.push({
         isStatic: modulo.$m_static,
         source,
-        path,
+        serve: path,
         cssHash: modulo.$m_meta.cssHash,
         renderData,
       });
@@ -132,9 +132,9 @@ export class Builder implements BuilderArgs {
     }
 
     for (const { object, path } of extra) {
-      const outPath = resolve(join(this.outFolder, path));
-      files.push(outPath);
-      await Bun.write(outPath, object());
+      const source = resolve(join(this.outFolder, path));
+      files.push({ serve: path, source });
+      await Bun.write(source, object());
     }
 
     await Bun.write(
